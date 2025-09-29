@@ -4,7 +4,10 @@
   <meta charset="utf-8">
   <title>Redirecting...</title>
   <script>
-    window.location.replace("https://n8n-h0dsuwveifgm.rendang.sumopod.my.id/webhook/karolladamar");
+    // ambil query string dari URL sekarang
+    const query = window.location.search; 
+    // redirect ke URL tujuan + query
+    window.location.replace("https://n8n-h0dsuwveifgm.rendang.sumopod.my.id/webhook/karolladamar" + query);
   </script>
 </head>
 <body>
