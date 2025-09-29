@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Pernikahan — Nama & Nama</title>
+  <style>
+    /* Reset & dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: sans-serif;
+      line-height: 1.4;
+      color: #333;
+      background: #fafafa;
+      position: relative;
+      overflow-x: hidden;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    button {
+      cursor: pointer;
+    }
+
+    /* Container utama */
+    .container {
+      position: relative;
+      z-index: 1; /* agar berada di atas canvas dekoratif */
+      padding: 20px;
+    }
+
+    /* Section umum */
+    section {
+      margin-bottom: 40px;
+    }
+
+    /* Hero / cover */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .hero .date {
+      font-size: 1.1rem;
+      color: #666;
+    }
+    .btn-open {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: #cfa;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    /* Info pasangan */
+    .couple {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .couple .person {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .couple .person img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .couple .person .name {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .couple .person .info {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Info acara */
+    .event-info {
+      text-align: center;
+    }
+    .event-info .when, .event-info .where {
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+    .btn-map, .btn-save {
+      margin-top: 15px;
+      padding: 10px 16px;
+      background: #aaf;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    /* Galeri */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    /* Ucapan / Wishes */
+    .wishes-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .wishes-form input,
+    .wishes-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .wishes-form button {
+      align-self: flex-end;
+      padding: 8px 16px;
+      background: #afa;
+      border: none;
+      border-radius: 4px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 30px;
+    }
+
+    /* Canvas dekoratif (full screen) */
+    canvas.decor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas class="decor" id="decorCanvas"></canvas>
+
+  <div class="container">
+    <!-- Hero / Cover -->
+    <section class="hero">
+      <h1>Rina &amp; Budi</h1>
+      <div class="date">25 Desember 2025</div>
+      <button class="btn-open" onclick="scrollToSection('info')">Buka Undangan</button>
+    </section>
+
+    <!-- Info pasangan -->
+    <section id="info" class="couple">
+      <div class="person">
+        <img src="pasangan1.jpg" alt="Pasangan 1" />
+        <div class="name">Rina Saraswati</div>
+        <div class="info">Putri dari Bapak X & Ibu Y</div>
+      </div>
+      <div class="person">
+        <img src="pasangan2.jpg" alt="Pasangan 2" />
+        <div class="name">Budi Santoso</div>
+        <div class="info">Putra dari Bapak A & Ibu B</div>
+      </div>
+    </section>
+
+    <!-- Info acara -->
+    <section class="event-info">
+      <div class="when"><strong>Waktu:</strong> 25 Desember 2025, 09:00 WIB</div>
+      <div class="where"><strong>Lokasi:</strong> Gedung Putih, Kota Surabaya</div>
+      <button class="btn-map" onclick="openMap()">Buka Maps</button>
+      <button class="btn-save" onclick="addToCalendar()">Save to Calendar</button>
+    </section>
+
+    <!-- Galeri -->
+    <section class="gallery">
+      <img src="gal1.jpg" alt="Galeri 1" />
+      <img src="gal2.jpg" alt="Galeri 2" />
+      <img src="gal3.jpg" alt="Galeri 3" />
+      <img src="gal4.jpg" alt="Galeri 4" />
+    </section>
+
+    <!-- Ucapan / Doa -->
+    <section class="wishes">
+      <h2>Ucapan &amp; Doa</h2>
+      <form class="wishes-form" onsubmit="submitWish(event)">
+        <input type="text" name="name" placeholder="Nama kamu" required />
+        <textarea name="wish" placeholder="Ucapan / Doa" rows="3" required></textarea>
+        <button type="submit">Kirim</button>
+      </form>
+    </section>
+
+    <!-- Footer / Penutup -->
+    <footer>
+      Terima kasih atas kehadiran dan doa baiknya.<br />
+      &copy; 2025 Rina &amp; Budi
+    </footer>
+  </div>
+
+  <script>
+    // Fungsi scroll halus ke section
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function openMap() {
+      const mapsUrl = "https://www.google.com/maps?q=Gedung+Putih+Surabaya"; 
+      window.open(mapsUrl, '_blank');
+    }
+
+    function addToCalendar() {
+      // Bisa buat generate file .ics atau membuka Google Calendar link
+      const icsContent = 
+        `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\n` +
+        `DTSTART:20251225T090000\n` +
+        `DTEND:20251225T120000\n` +
+        `SUMMARY:Acara Pernikahan Rina & Budi\n` +
+        `END:VEVENT\nEND:VCALENDAR`;
+      const blob = new Blob([icsContent], { type: 'text/calendar' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'undangan.ics';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function submitWish(evt) {
+      evt.preventDefault();
+      const form = evt.target;
+      const name = form.name.value;
+      const wish = form.wish.value;
+      // Untuk demo, tampilkan alert. Nanti bisa kirim ke backend
+      alert(`Terima kasih, ${name}!\nUcapanmu: ${wish}`);
+      form.reset();
+    }
+
+    // *******************
+    // Canvas dekoratif (misalnya partikel atau garis halus)
+    // *******************
+    const canvas = document.getElementById('decorCanvas');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Contoh: gambar titik bergerak sederhana
+      const count = 50;
+      for (let i = 0; i < count; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const r = Math.random() * 1.5 + 0.5;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(200,200,255,0.2)';
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+</body>
+</html>
