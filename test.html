@@ -1,290 +1,282 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Undangan Pernikahan — Nama & Nama</title>
-  <style>
-    /* Reset & dasar */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Undangan Pernikahan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#f04299",
+                    "background-light": "#f8f6f7",
+                    "background-dark": "#221019",
+                    "text-light": "#67595E",
+                    "text-dark": "#E5E0E2",
+                    "rose-gold-100": "#FBF1F3",
+                    "rose-gold-200": "#F7E3E8",
+                    "rose-gold-300": "#EBC2CD",
+                    "rose-gold-text": "#67595E"
+                },
+                fontFamily: {
+                    "display": ["Plus Jakarta Sans"],
+                    "serif": ["Cormorant Garamond", "serif"],
+                },
+                borderRadius: {
+                    "DEFAULT": "0.5rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+                },
+            },
+        },
+    }
+</script>
+<style>
+    .text-shadow {
+        text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
     }
     body {
-      font-family: sans-serif;
-      line-height: 1.4;
-      color: #333;
-      background: #fafafa;
-      position: relative;
-      overflow-x: hidden;
+      min-height: max(884px, 100dvh);
     }
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-    img {
-      max-width: 100%;
-      display: block;
-    }
-    button {
-      cursor: pointer;
-    }
-
-    /* Container utama */
-    .container {
-      position: relative;
-      z-index: 1; /* agar berada di atas canvas dekoratif */
-      padding: 20px;
-    }
-
-    /* Section umum */
-    section {
-      margin-bottom: 40px;
-    }
-
-    /* Hero / cover */
-    .hero {
-      text-align: center;
-      padding: 60px 20px;
-    }
-    .hero h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-    .hero .date {
-      font-size: 1.1rem;
-      color: #666;
-    }
-    .btn-open {
-      margin-top: 20px;
-      display: inline-block;
-      padding: 10px 20px;
-      background: #cfa;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-
-    /* Info pasangan */
-    .couple {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .couple .person {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .couple .person img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 10px;
-    }
-    .couple .person .name {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-    .couple .person .info {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    /* Info acara */
-    .event-info {
-      text-align: center;
-    }
-    .event-info .when, .event-info .where {
-      margin-top: 10px;
-      font-size: 1rem;
-    }
-    .btn-map, .btn-save {
-      margin-top: 15px;
-      padding: 10px 16px;
-      background: #aaf;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.95rem;
-    }
-
-    /* Galeri */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-
-    /* Ucapan / Wishes */
-    .wishes-form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .wishes-form input,
-    .wishes-form textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .wishes-form button {
-      align-self: flex-end;
-      padding: 8px 16px;
-      background: #afa;
-      border: none;
-      border-radius: 4px;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      font-size: 0.85rem;
-      color: #777;
-      margin-top: 30px;
-    }
-
-    /* Canvas dekoratif (full screen) */
-    canvas.decor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-  </style>
+</style>
 </head>
-<body>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+<div class="flex flex-col">
 
-  <canvas class="decor" id="decorCanvas"></canvas>
+<!-- HERO -->
+<div class="relative flex h-screen min-h-screen w-full flex-col justify-between overflow-hidden">
+    <div class="absolute inset-0 bg-center bg-no-repeat bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA3sz00yb5-gX6LhB18nUpXETNaLgSStrJwi_w4thWQtLtr9WtN4HZfsSRmyiOgGSFDyIyIM3zuDVPj_R1tDMN414q0rMOUreFlpBRMypED2PvZnoy9ljRXvrjAk15ifjhROxgntSiFdbOqcItjBc-GQndpBNV2eOfesKRsdKqBTpYc-zUmRAd3K9qqCoLUedexvodoPM8F_z95Dd9-_Da8nSkN4xv9bJfcOZlM6cVwrfDUwOz5030lTdfzL8bBBzXgI_Bun-lzhO4");'>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+    </div>
+    <div class="relative z-10 flex flex-col items-center justify-end flex-grow text-center text-white p-6">
+        <p class="mb-2 text-lg text-shadow">Pernikahan</p>
+        <h1 class="text-5xl font-bold leading-tight text-shadow mb-4 font-serif">Rina &amp; Budi</h1>
+        <p class="text-lg text-shadow">12 Desember 2024</p>
+    </div>
+    <div class="relative z-10 p-6">
+        <button class="open-invitation w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-primary text-white text-base font-bold shadow-lg transform hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined">mail</span>
+            <span class="truncate">Buka Undangan</span>
+        </button>
+    </div>
+</div>
 
-  <div class="container">
-    <!-- Hero / Cover -->
-    <section class="hero">
-      <h1>Rina &amp; Budi</h1>
-      <div class="date">25 Desember 2025</div>
-      <button class="btn-open" onclick="scrollToSection('info')">Buka Undangan</button>
-    </section>
+<!-- AYAT -->
+<div class="py-16 px-6 text-center">
+    <p class="font-serif italic text-2xl mb-4 leading-relaxed text-text-light dark:text-text-dark">
+        “Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah, tidak boleh diceraikan manusia.”
+    </p>
+    <p class="font-serif text-lg text-text-light/80 dark:text-text-dark/80">Matius 19:6</p>
+</div>
 
-    <!-- Info pasangan -->
-    <section id="info" class="couple">
-      <div class="person">
-        <img src="pasangan1.jpg" alt="Pasangan 1" />
-        <div class="name">Rina Saraswati</div>
-        <div class="info">Putri dari Bapak X & Ibu Y</div>
-      </div>
-      <div class="person">
-        <img src="pasangan2.jpg" alt="Pasangan 2" />
-        <div class="name">Budi Santoso</div>
-        <div class="info">Putra dari Bapak A & Ibu B</div>
-      </div>
-    </section>
+<!-- MEMPELAI -->
+<div class="px-6 py-10 bg-white/50 dark:bg-black/10">
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold font-serif text-gray-800 dark:text-gray-200 mb-2">Mempelai</h2>
+        <p class="text-base text-text-light dark:text-text-dark">Pasangan berbahagia</p>
+    </div>
+    <div class="flex flex-col gap-10">
+        <div class="flex flex-col items-center text-center">
+            <img alt="Mempelai Pria" class="w-40 h-40 rounded-full object-cover mb-4 border-4 border-primary/50 shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSi8HkoqhIFATIXElb52Du5IK3LruHyNMe4Si1OA8E-PHqiD1UoXiKu6qQR-oCtavgm1cjaC1VMiFyluYiIjEfYEcuzYmXSQg0rNd2goE67SERtx3RJRo4oo114fBrXJNdzm887k3spXJkJu7L4LJTQmN5m6aBZ6Sdm1fnT0F1eL-kRpq6RRjadSYiK2kCS4M8IRqTQlLG_4iTh1Thi5iLvWxbJxbAKmx5WRyHk9c7VU3a71mvDn5se4OKFvPlgum3izIwJEaCMJ4"/>
+            <h3 class="text-2xl font-bold font-serif text-gray-800 dark:text-gray-200">Budi Santoso</h3>
+            <p class="text-sm text-text-light dark:text-text-dark mb-2">Putra dari Bapak &amp; Ibu Santoso</p>
+        </div>
+        <div class="flex flex-col items-center text-center">
+            <img alt="Mempelai Wanita" class="w-40 h-40 rounded-full object-cover mb-4 border-4 border-primary/50 shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdhpjWKPu7LZzYsKAOatH7OwhePl_6e6sjMSnj-TQ-yFZE_IdLqINEUIjFon6Wj0GW_UnJCaMInIhjIWFtelegm-4LuwCzzHYY4k6UJZXRuaOOuKr37XxAvB0JbKpFQ9nGqaNOCTMB326LTMbH3iaVmo9gX-PUOrAKasQv3A4yxxems0OvRUT_vcSN3ZtOTf9NsY53Gqy7ghfzs4KmXINwuvdrrW2t5rPkWOONV0BqF3rvDiz8_GwfMkRof_6b_t-U6PtSuXi37OE"/>
+            <h3 class="text-2xl font-bold font-serif text-gray-800 dark:text-gray-200">Rina Wulandari</h3>
+            <p class="text-sm text-text-light dark:text-text-dark mb-2">Putri dari Bapak &amp; Ibu Wulandari</p>
+        </div>
+    </div>
+</div>
 
-    <!-- Info acara -->
-    <section class="event-info">
-      <div class="when"><strong>Waktu:</strong> 25 Desember 2025, 09:00 WIB</div>
-      <div class="where"><strong>Lokasi:</strong> Gedung Putih, Kota Surabaya</div>
-      <button class="btn-map" onclick="openMap()">Buka Maps</button>
-      <button class="btn-save" onclick="addToCalendar()">Save to Calendar</button>
-    </section>
+<!-- PEMBERKATAN -->
+<div class="py-16 px-6 text-center bg-background-light dark:bg-background-dark">
+    <h2 class="text-4xl font-bold font-serif text-gray-800 dark:text-gray-200 mb-6">Pemberkatan Nikah</h2>
+    <div class="space-y-4 text-lg">
+        <div class="flex items-center justify-center gap-3">
+            <span class="material-symbols-outlined text-primary text-2xl">calendar_month</span>
+            <p>Sabtu, 29 November 2025</p>
+        </div>
+        <div class="flex items-center justify-center gap-3">
+            <span class="material-symbols-outlined text-primary text-2xl">schedule</span>
+            <p>09:00 WIB</p>
+        </div>
+        <div class="flex items-center justify-center gap-3">
+            <span class="material-symbols-outlined text-primary text-2xl">location_on</span>
+            <p>Gereja Katedral Semarang</p>
+        </div>
+    </div>
+    <div class="mt-8 flex flex-col gap-4 max-w-xs mx-auto">
+        <button class="btn-map w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-primary text-white text-base font-bold shadow-lg transform hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined">map</span>
+            <span>Buka Peta</span>
+        </button>
+        <button class="btn-live w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-gray-600 text-white text-base font-bold shadow-lg transform hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined">live_tv</span>
+            <span>Tonton Langsung</span>
+        </button>
+    </div>
+</div>
 
-    <!-- Galeri -->
-    <section class="gallery">
-      <img src="gal1.jpg" alt="Galeri 1" />
-      <img src="gal2.jpg" alt="Galeri 2" />
-      <img src="gal3.jpg" alt="Galeri 3" />
-      <img src="gal4.jpg" alt="Galeri 4" />
-    </section>
+<!-- SAVE THE DATE -->
+<div class="px-6 py-10 bg-white/50 dark:bg-black/10 text-center">
+    <h2 class="text-3xl font-bold font-serif text-gray-800 dark:text-gray-200 mb-4">Simpan Tanggal</h2>
+    <div class="flex justify-center gap-4 text-gray-800 dark:text-gray-200 countdown">
+        <div class="flex flex-col items-center"><span class="text-4xl font-bold">0</span><span class="text-sm">Hari</span></div>
+        <div class="flex flex-col items-center"><span class="text-4xl font-bold">0</span><span class="text-sm">Jam</span></div>
+        <div class="flex flex-col items-center"><span class="text-4xl font-bold">0</span><span class="text-sm">Menit</span></div>
+        <div class="flex flex-col items-center"><span class="text-4xl font-bold">0</span><span class="text-sm">Detik</span></div>
+    </div>
+</div>
 
-    <!-- Ucapan / Doa -->
-    <section class="wishes">
-      <h2>Ucapan &amp; Doa</h2>
-      <form class="wishes-form" onsubmit="submitWish(event)">
-        <input type="text" name="name" placeholder="Nama kamu" required />
-        <textarea name="wish" placeholder="Ucapan / Doa" rows="3" required></textarea>
-        <button type="submit">Kirim</button>
-      </form>
-    </section>
+<!-- RSVP -->
+<div class="px-6 py-16 bg-rose-gold-100 text-rose-gold-text">
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold font-serif text-rose-gold-text mb-2">RSVP</h2>
+        <p class="text-base text-rose-gold-text/80">Mohon konfirmasi kehadiran Anda</p>
+    </div>
+    <form class="space-y-6 rsvp-form">
+        <div>
+            <label class="block text-sm font-medium text-rose-gold-text mb-1" for="name">Nama</label>
+            <input class="w-full rounded-lg border-rose-gold-300 bg-white" id="name" name="name" placeholder="Nama Anda" type="text"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-rose-gold-text mb-1" for="attendance">Kehadiran</label>
+            <select class="w-full rounded-lg border-rose-gold-300 bg-white" id="attendance" name="attendance">
+                <option>Hadir</option>
+                <option>Tidak Hadir</option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-rose-gold-text mb-1" for="attendees">Jumlah Tamu</label>
+            <select class="w-full rounded-lg border-rose-gold-300 bg-white" id="attendees" name="attendees">
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+        </div>
+        <button class="btn-rsvp w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-rose-gold-300 text-rose-gold-text font-bold shadow-lg transform hover:scale-105 transition-transform" type="submit">Kirim RSVP</button>
+    </form>
+</div>
 
-    <!-- Footer / Penutup -->
-    <footer>
-      Terima kasih atas kehadiran dan doa baiknya.<br />
-      &copy; 2025 Rina &amp; Budi
-    </footer>
-  </div>
+<!-- GALERI -->
+<div class="px-6 py-16 bg-rose-gold-200">
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold font-serif text-rose-gold-text mb-2">Galeri</h2>
+        <p class="text-base text-rose-gold-text/80">Momen berharga kami</p>
+    </div>
+    <div class="grid grid-cols-2 gap-2 gallery">
+        <img alt="Gallery image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl2bOrHnCU_aAS2Ef_Z1n0tY4XgI2YbPVj_XYkxE7NlBEoY4EpnMwcX2VCeKGF_XdIaLhX_B1t8W_41s451JumZZ_qCrZ_zoAKc-OLxWA9YZHM-zPauK16x1eEiiBXvrBzm1T8cfe9N_NysiiorySuP17mAO8SSuREQgC48Amfzs7WIRTyqEqGGR95Zx4Zwp-DWoNCECOh-zYzhfgfaBOkKMMf4h1afRE51gXp4KRNxYJ0iGE8govC-beZ61XC3C78QajICFYufiY"/>
+        <img alt="Gallery image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjyBbhwMUYQFKYaUy-OPRQZjU5U4OF61NbjfkHe9bl5TQnUWRXnP6Ecp8pXydiGyj_tldwVVYM_dViKUTfxYxWIbwkvyBk7ob-zZGEvuc4XUl-gRRCI8iHhLTLtfucQJPKBwzEihODGLcFkrvyxB1jcBkTFZMAuuomgyIi_dXEmTc3fovb0lZTvS3IgMWhWw01z0dY_UFxBViYMQGowG0uPCpeooCJcIpPtCiFnk-LbtV8zpeR5-oKgv-PsBaJ5YY1Mkkj7OeSzc8"/>
+    </div>
+</div>
 
-  <script>
-    // Fungsi scroll halus ke section
-    function scrollToSection(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+<!-- HADIAH -->
+<div class="px-6 py-16 bg-rose-gold-100 text-rose-gold-text">
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold font-serif text-rose-gold-text mb-2">Hadiah Pernikahan</h2>
+        <p class="text-base text-rose-gold-text/80">Kehadiran Anda adalah hadiah terbesar, namun jika ingin memberikan hadiah, kami berterima kasih.</p>
+    </div>
+    <div class="space-y-6">
+        <div class="p-6 bg-white/50 rounded-xl text-center">
+            <p class="font-serif text-lg text-rose-gold-text">Rina Wulandari</p>
+            <p class="acc text-2xl font-bold text-rose-gold-text my-2">123-456-7890</p>
+            <p class="text-sm text-rose-gold-text/80">Bank ABC</p>
+            <button class="btn-copy mt-4 px-4 py-2 text-sm font-bold text-rose-gold-text bg-rose-gold-300 rounded-lg hover:bg-rose-gold-300/80 transition">Salin Rekening</button>
+        </div>
+        <div class="p-6 bg-white/50 rounded-xl text-center">
+            <p class="font-serif text-lg text-rose-gold-text">Budi Santoso</p>
+            <p class="acc text-2xl font-bold text-rose-gold-text my-2">098-765-4321</p>
+            <p class="text-sm text-rose-gold-text/80">Bank XYZ</p>
+            <button class="btn-copy mt-4 px-4 py-2 text-sm font-bold text-rose-gold-text bg-rose-gold-300 rounded-lg hover:bg-rose-gold-300/80 transition">Salin Rekening</button>
+        </div>
+    </div>
+</div>
+
+<!-- PENUTUP -->
+<div class="py-16 px-6 text-center bg-background-light dark:bg-background-dark">
+    <p class="font-serif text-lg leading-relaxed">Merupakan suatu kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
+    <p class="font-serif text-lg leading-relaxed mt-4">Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.</p>
+    <p class="font-serif text-xl font-bold mt-8">Kami yang berbahagia,</p>
+    <p class="font-serif text-2xl font-bold text-primary mt-2">Rina &amp; Budi</p>
+</div>
+
+</div>
+
+<!-- SCRIPT -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    // Lock scroll sampai klik Buka Undangan
+    $("body").css("overflow", "hidden");
+    $(".open-invitation").on("click", function () {
+        $("body").css("overflow", "auto");
+        $(this).fadeOut();
+    });
+
+    // Pemberkatan: Map & Live
+    $(".btn-map").on("click", function () {
+        window.open("https://maps.app.goo.gl/FKv8gP3ycMBBt3KM8", "_blank");
+    });
+    $(".btn-live").on("click", function () {
+        window.open("https://youtube.com", "_blank");
+    });
+
+    // Countdown
+    function countdown() {
+        const eventDate = new Date("Nov 29, 2025 09:00:00").getTime();
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const box = $(".countdown div");
+        $(box[0]).find("span:first").text(days);
+        $(box[1]).find("span:first").text(hours);
+        $(box[2]).find("span:first").text(minutes);
+        $(box[3]).find("span:first").text(seconds);
     }
+    setInterval(countdown, 1000);
 
-    function openMap() {
-      const mapsUrl = "https://www.google.com/maps?q=Gedung+Putih+Surabaya"; 
-      window.open(mapsUrl, '_blank');
-    }
+    // RSVP: WhatsApp
+    $(".btn-rsvp").on("click", function (e) {
+        e.preventDefault();
+        const name = $("#name").val();
+        const attendance = $("#attendance").val();
+        const attendees = $("#attendees").val();
+        const message = `Halo, saya ${name}. Saya ${attendance} dengan jumlah tamu ${attendees}.`;
+        const url = "https://wa.me/6281392263880?text=" + encodeURIComponent(message);
+        window.open(url, "_blank");
+    });
 
-    function addToCalendar() {
-      // Bisa buat generate file .ics atau membuka Google Calendar link
-      const icsContent = 
-        `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\n` +
-        `DTSTART:20251225T090000\n` +
-        `DTEND:20251225T120000\n` +
-        `SUMMARY:Acara Pernikahan Rina & Budi\n` +
-        `END:VEVENT\nEND:VCALENDAR`;
-      const blob = new Blob([icsContent], { type: 'text/calendar' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'undangan.ics';
-      a.click();
-      URL.revokeObjectURL(url);
-    }
+    // Gallery: Lightbox
+    $(".gallery img").each(function () {
+        const src = $(this).attr("src");
+        $(this).wrap(`<a href="${src}" data-lightbox="gallery"></a>`);
+    });
 
-    function submitWish(evt) {
-      evt.preventDefault();
-      const form = evt.target;
-      const name = form.name.value;
-      const wish = form.wish.value;
-      // Untuk demo, tampilkan alert. Nanti bisa kirim ke backend
-      alert(`Terima kasih, ${name}!\nUcapanmu: ${wish}`);
-      form.reset();
-    }
+    // Copy Rekening
+    $(".btn-copy").on("click", function () {
+        const accNum = $(this).siblings(".acc").text().trim();
+        navigator.clipboard.writeText(accNum).then(() => {
+            alert("Nomor rekening berhasil disalin: " + accNum);
+        });
+    });
+});
+</script>
 
-    // *******************
-    // Canvas dekoratif (misalnya partikel atau garis halus)
-    // *******************
-    const canvas = document.getElementById('decorCanvas');
-    const ctx = canvas.getContext('2d');
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // Contoh: gambar titik bergerak sederhana
-      const count = 50;
-      for (let i = 0; i < count; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const r = Math.random() * 1.5 + 0.5;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(200,200,255,0.2)';
-        ctx.fill();
-      }
-      requestAnimationFrame(draw);
-    }
-    draw();
-  </script>
 </body>
 </html>
