@@ -1,5 +1,99 @@
-<html>
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fetch cross-origin contoh</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding: 24px; max-width: 900px; }
+    input, button { padding: 8px; font-size: 14px; }
+    #output { margin-top: 18px; white-space: pre-wrap; border: 1px solid #ddd; padding: 12px; border-radius: 8px; background: #fafafa; max-height: 60vh; overflow: auto; }
+    .meta { color: #666; font-size: 13px; margin-top: 6px; }
+  </style>
+</head>
 <body>
-<h1>hello world</h1>
+  <h1>Ambil isi situs lain (by JS)</h1>
+
+  <label>
+    URL target:
+    <input id="url" type="text" size="60" value="https://n8n-h0dsuwveifgm.rendang.sumopod.my.id/webhook/damkar" />
+  </label>
+  <label style="margin-left:10px">
+    <input id="isJson" type="checkbox" /> Response JSON (auto parse)
+  </label>
+  <button id="fetchBtn">Ambil</button>
+
+  <div class="meta">
+    <span id="status">Status: siap</span>
+  </div>
+
+  <div id="output">Hasil akan muncul di sini...</div>
+
+<script>
+  const btn = document.getElementById('fetchBtn');
+  const urlInput = document.getElementById('url');
+  const out = document.getElementById('output');
+  const status = document.getElementById('status');
+  const isJsonCheckbox = document.getElementById('isJson');
+
+  // Public fallback CORS proxy (gunakan hanya untuk testing)
+  const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+
+  async function tryFetchDirect(url, options = {}) {
+    // Normal fetch; browser akan menolak jika target tidak mengizinkan CORS
+    const resp = await fetch(url, options);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    return resp;
+  }
+
+  async function fetchWithFallback(url, asJson) {
+    status.textContent = 'Status: mencoba fetch langsung...';
+    out.textContent = '';
+    try {
+      const resp = await tryFetchDirect(url, { mode: 'cors' });
+      status.textContent = 'Status: berhasil (direct)';
+      return asJson ? resp.json() : resp.text();
+    } catch (err) {
+      console.warn('Direct fetch failed:', err);
+      status.textContent = 'Status: direct fetch gagal — mencoba fallback proxy...';
+      // Fallback ke public proxy
+      try {
+        const proxied = CORS_PROXY + encodeURIComponent(url);
+        const resp2 = await fetch(proxied);
+        if (!resp2.ok) throw new Error('Proxy HTTP ' + resp2.status);
+        status.textContent = 'Status: berhasil (proxy)';
+        return asJson ? resp2.json() : resp2.text();
+      } catch (err2) {
+        console.error('Proxy fetch failed:', err2);
+        status.textContent = 'Status: gagal (direct & proxy)';
+        throw err2;
+      }
+    }
+  }
+
+  btn.addEventListener('click', async () => {
+    const url = urlInput.value.trim();
+    const asJson = isJsonCheckbox.checked;
+    if (!url) return alert('Masukkan URL target dulu');
+    out.textContent = 'Mencoba mengambil...';
+
+    try {
+      const data = await fetchWithFallback(url, asJson);
+      if (asJson) {
+        // tampilkan JSON rapi
+        out.textContent = JSON.stringify(data, null, 2);
+      } else {
+        // kalau HTML: masukkan ke dalam container.
+        // HATI-HATI: script di dalam HTML tidak akan dieksekusi ketika dimasukkan via innerHTML.
+        out.innerHTML = data;
+      }
+    } catch (e) {
+      out.textContent = 'Terjadi error: ' + (e && e.message ? e.message : String(e));
+    }
+  });
+
+  // Optional: tes otomatis saat load (comment jika tidak mau)
+  // window.addEventListener('load', () => { /* btn.click(); */ });
+</script>
 </body>
 </html>
