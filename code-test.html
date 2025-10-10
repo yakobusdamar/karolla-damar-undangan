@@ -225,23 +225,27 @@
                 </button>
             </form>
             <div class="mt-12">
-                <h3 class="text-2xl font-serif text-rose-gold-text mb-6 text-center">Ucapan &amp; Doa</h3>
-                <form class="space-y-4">
+                <h3 class="text-2xl font-serif text-rose-gold-text mb-6 text-center">Ucapan & Doa</h3>
+                <form id="wishForm" class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-rose-gold-text mb-1 sr-only"
-                            for="wishes">Nama</label>
-                        <textarea
-                            class="w-full rounded-lg border-rose-gold-300 bg-white focus:ring-rose-gold-300 focus:border-rose-gold-300 text-rose-gold-text"
-                            id="nama_wishes" name="nama_wishes"
-                            placeholder="Masukkan nama Anda" rows="4"></textarea>
+                        <label class="block text-sm font-medium text-rose-gold-text mb-1" for="nama">Nama</label>
+                        <input
+                            type="text"
+                            class="w-full rounded-lg border-rose-gold-300 bg-white focus:ring-rose-gold-300 focus:border-rose-gold-300 text-rose-gold-text px-4 py-2 border"
+                            id="nama"
+                            name="nama"
+                            placeholder="Masukkan nama Anda"
+                            required>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-rose-gold-text mb-1 sr-only"
-                            for="wishes">Pesan</label>
+                        <label class="block text-sm font-medium text-rose-gold-text mb-1" for="wishes">Ucapan & Doa</label>
                         <textarea
-                            class="w-full rounded-lg border-rose-gold-300 bg-white focus:ring-rose-gold-300 focus:border-rose-gold-300 text-rose-gold-text"
-                            id="wishes" name="wishes"
-                            placeholder="Kirim ucapan &amp; doa terbaik Anda untuk kedua mempelai" rows="4"></textarea>
+                            class="w-full rounded-lg border-rose-gold-300 bg-white focus:ring-rose-gold-300 focus:border-rose-gold-300 text-rose-gold-text px-4 py-2 border"
+                            id="wishes"
+                            name="wishes"
+                            placeholder="Kirim ucapan & doa terbaik Anda untuk kedua mempelai"
+                            rows="4"
+                            required></textarea>
                     </div>
                     <button
                         class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-rose-gold-300 text-rose-gold-text text-base font-bold shadow-lg transform hover:scale-105 transition-transform"
@@ -249,7 +253,20 @@
                         Kirim
                     </button>
                 </form>
-                <div class="space-y-4 max-h-60 overflow-y-auto pr-2 mt-8">
+    
+                <!-- Loading State -->
+                <div id="loadingState" class="text-center py-8 hidden">
+                    <p class="text-rose-gold-text">Memuat ucapan...</p>
+                </div>
+    
+                <!-- Wishes List -->
+                <div id="wishesContainer" class="space-y-4 max-h-96 overflow-y-auto pr-2 mt-8">
+                    <!-- Wishes will be loaded here dynamically -->
+                </div>
+    
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-8 hidden">
+                    <p class="text-rose-gold-text/60">Belum ada ucapan. Jadilah yang pertama!</p>
                 </div>
             </div>
         </div>
