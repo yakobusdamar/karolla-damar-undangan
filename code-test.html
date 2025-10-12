@@ -279,7 +279,12 @@
                         Kirim
                     </button>
                 </form>
-
+                <!-- hr with icons -->
+                <div class="my-10 flex items-center">
+                    <hr class="flex-grow border-t border-rose-gold-text/30" />
+                    <span class="mx-4 text-rose-gold-text/60">♡</span>
+                    <hr class="flex-grow border-t border-rose-gold-text/30" />
+                </div>
                 <!-- Loading State -->
                 <div id="loadingState" class="text-center py-8 hidden">
                     <p class="text-rose-gold-text">Memuat ucapan...</p>
@@ -438,8 +443,10 @@
 
         <footer
             class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark py-6 text-center">
-            <p class="text-sm">Website oleh Damar Pradiptojati</p>
-            <p class="text-sm">Musik oleh Mijil Satria Pamungkas</p>
+            <!-- super small text 0.5rem -->
+            <p class="text-[0.6rem]">Web builder by Damar Pradiptojati</p>
+            <p class="text-[0.6rem]">Music by Mijil Satria Pamungkas</p>
+
         </footer>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -601,8 +608,8 @@
             var whatsappUrl = `https://wa.me/6281392263880?text=${encodedMessage}`; // Ganti dengan nomor WhatsApp penerima yang benar
             window.open(whatsappUrl, '_blank');
         });
-    </script>
-    <script>
+
+
         // API endpoints
         const API_BASE_URL = 'https://n8n-h0dsuwveifgm.rendang.sumopod.my.id/webhook';
         const SUBMIT_WISH_URL = `${API_BASE_URL}/set-wish`;
@@ -772,8 +779,8 @@
                 this.querySelector('span.truncate').textContent = 'Buka';
             }
         });
-    </script>
-    <script>
+
+        // Play background music when invitation is opened
         const btn = $('#openInvitation')[0];
         const audio = $('#bgmusic')[0];
 
