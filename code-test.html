@@ -50,10 +50,11 @@
         .text-shadow {
             text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
         }
+
         body {
             min-height: max(884px, 100dvh);
         }
-        
+
         /* Custom Styles & Tailwind Configuration */
         :root {
             --rose-gold-text: #9B596F;
@@ -66,9 +67,17 @@
             background-color: var(--bg-color);
         }
 
-        .text-rose-gold-text { color: var(--rose-gold-text); }
-        .bg-rose-gold-300 { background-color: var(--rose-gold-300); }
-        .hover\:bg-rose-gold-300\/80:hover { background-color: rgba(234, 208, 217, 0.8); }
+        .text-rose-gold-text {
+            color: var(--rose-gold-text);
+        }
+
+        .bg-rose-gold-300 {
+            background-color: var(--rose-gold-300);
+        }
+
+        .hover\:bg-rose-gold-300\/80:hover {
+            background-color: rgba(234, 208, 217, 0.8);
+        }
 
         /* Custom Font for Names */
         .font-serif-custom {
@@ -79,18 +88,20 @@
 
 <body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
     <div class="flex flex-col">
-        <div class="relative flex h-[90vh] min-h-[400px] w-full flex-col justify-between overflow-hidden pb-20 sm:pb-10">
+        <div
+            class="relative flex h-[100vh] min-h-[400px] w-full flex-col justify-between overflow-hidden pb-20 sm:pb-10">
             <div class="absolute inset-0 bg-center bg-no-repeat bg-cover"
                 style='background-image: url("img_resource/hero4.jpg");'>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
             </div>
             <div class="relative z-10 flex flex-col items-center justify-end flex-grow text-center text-white p-6">
                 <p class="mb-2 text-lg text-shadow">Pernikahan</p>
-                <h1 class="text-3xl font-bold leading-tight text-shadow mb-4 font-serif">Karolla &amp; Damar</h1>
+                <h1 class="text-4xl font-bold leading-tight text-shadow mb-4 font-serif">Karolla &amp; Damar</h1>
                 <p class="text-lg text-shadow">29 November 2025</p>
-                <p class="text-lg text-shadow">Kepada Yth. <span id="invitee"></span></p>
+                <p class="mt-6 text-lg text-shadow">Kepada Yth. <span id="invitee"></span></p>
                 <!-- add small "mohon maaf atas penulisan nama" -->
-                <p class="mt-4 italic text-shadow" style="font-size: 8pt;">"Mohon maaf apabila ada kesalahan penulisan gelar / nama"</p>
+                <p class="mt-4 italic text-shadow" style="font-size: 8pt;">"Mohon maaf apabila ada kesalahan penulisan
+                    gelar / nama"</p>
             </div>
             <div class="relative z-10 p-6 pb-3">
                 <button id="openInvitation"
@@ -102,7 +113,7 @@
                 </button>
             </div>
         </div>
-        <div class="py-16 px-6 text-center">
+        <div class="py-16 px-6 text-center bg-rose-gold-200 text-rose-gold-text">
             <p class="font-serif italic text-2xl mb-4 leading-relaxed text-text-light dark:text-text-dark">
                 “Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah, tidak
                 boleh diceraikan manusia.”
@@ -111,59 +122,68 @@
         </div>
         <div class="px-6 py-10 bg-white/50 dark:bg-black/10">
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold font-serif text-gray-800 dark:text-gray-200 mb-2">Mempelai</h2>
-                <p class="text-base text-text-light dark:text-text-dark">Pasangan berbahagia</p>
+                <h2 class="text-4xl font-bold font-serif text-rose-gold-text mb-2">Mempelai</h2>
+                <!-- <h2 class="text-3xl font-bold font-serif text-gray-800 dark:text-gray-200 mb-2">Mempelai</h2> -->
+                <!-- <p class="text-base text-text-light dark:text-text-dark">Pasangan berbahagia</p> -->
             </div>
             <div class="flex flex-col gap-10">
                 <div class="flex flex-col items-center text-center">
                     <img alt="Mempelai Pria"
                         class="w-40 h-40 rounded-full object-cover mb-4 border-4 border-primary/50 shadow-lg"
                         src="img_resource/damar.jpg" />
-                    <h3 class="text-2xl font-bold font-serif text-gray-800 dark:text-gray-200">Yakobus Damar Pradiptojati</h3>
-                    <p class="text-sm text-text-light dark:text-text-dark mb-2">Putra ke-1 dari<br>Bapak Titus Budi Setyoko &amp; Ibu Maria Sihmurni Sayekti</p>
+                    <h3 class="text-2xl font-bold font-serif text-gray-800 dark:text-gray-200">Yakobus Damar
+                        Pradiptojati</h3>
+                    <p class="mt-4 text-sm text-text-light dark:text-text-dark mb-2">Putra ke-1 dari<br />Bapak Titus Budi
+                        Setyoko<br />&amp;<br />Ibu Maria Sihmurni Sayekti</p>
                 </div>
                 <div class="flex flex-col items-center text-center">
                     <img alt="Mempelai Wanita"
                         class="w-40 h-40 rounded-full object-cover mb-4 border-4 border-primary/50 shadow-lg"
                         src="img_resource/olla.jpg" />
-                    <h3 class="text-2xl font-bold font-serif text-gray-800 dark:text-gray-200">Karolla Leonarda Maria Mursita Putri</h3>
-                    <p class="text-sm text-text-light dark:text-text-dark mb-2">Putri ke-3 dari<br>Bapak Ignatius Mursito &amp; Ibu Laurentia Hertatik</p>
+                    <h3 class="text-2xl font-bold font-serif text-gray-800 dark:text-gray-200">Karolla Leonarda Maria
+                        Mursita Putri</h3>
+                    <p class="mt-4 text-sm text-text-light dark:text-text-dark mb-2">Putri ke-3 dari<br />Bapak Ignatius
+                        Mursito<br />&amp;<br />Ibu Laurentia Hertatik</p>
                 </div>
             </div>
         </div>
-        <div class="py-16 px-6 text-center bg-background-light dark:bg-background-dark">
-            <h2 class="text-4xl font-bold font-serif text-gray-800 dark:text-gray-200 mb-6">Sakramen Perkawinan</h2>
-            <div class="space-y-4 text-lg">
-                <div class="flex items-center justify-center gap-3">
-                    <span class="material-symbols-outlined text-primary text-2xl">calendar_month</span>
-                    <p>Sabtu, 29 November 2025</p>
+        <div class="relative py-16 px-6 text-center bg-center bg-no-repeat bg-cover"
+            style='background-image: url("img_resource/bg1.jpg");'>
+            <div class="absolute inset-0 bg-white/70"></div>
+            <div class="relative">
+                <h2 class="text-4xl font-bold font-serif text-rose-gold-text mb-2">Sakramen Perkawinan</h2>
+                <div class="space-y-4 text-lg">
+                    <div class="flex items-center justify-center gap-3">
+                        <span class="material-symbols-outlined text-primary text-2xl">calendar_month</span>
+                        <p>Sabtu, 29 November 2025</p>
+                    </div>
+                    <div class="flex items-center justify-center gap-3">
+                        <span class="material-symbols-outlined text-primary text-2xl">schedule</span>
+                        <p>09:00 WIB</p>
+                    </div>
+                    <div class="flex items-center justify-center gap-3">
+                        <span class="material-symbols-outlined text-primary text-2xl">location_on</span>
+                        <p>Gereja Katedral Semarang</p>
+                    </div>
                 </div>
-                <div class="flex items-center justify-center gap-3">
-                    <span class="material-symbols-outlined text-primary text-2xl">schedule</span>
-                    <p>09:00 WIB</p>
+                <div class="mt-8 flex flex-col gap-4 max-w-xs mx-auto">
+                    <a href="https://maps.app.goo.gl/VmYHKbsvAX2Su4Z8A" target="_blank"
+                        class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-primary text-white text-base font-bold shadow-lg transform hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined">map</span>
+                        <span>Buka Peta</span>
+                    </a>
+                    <a href="https://www.youtube.com/@myweddinglivestreaming8651" target="_blank"
+                        class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-gray-600 text-white text-base font-bold shadow-lg transform hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined">live_tv</span>
+                        <span>Tonton Langsung</span>
+                    </a>
                 </div>
-                <div class="flex items-center justify-center gap-3">
-                    <span class="material-symbols-outlined text-primary text-2xl">location_on</span>
-                    <p>Gereja Katedral Semarang</p>
-                </div>
-            </div>
-            <div class="mt-8 flex flex-col gap-4 max-w-xs mx-auto">
-                <a
-                    href="https://maps.app.goo.gl/VmYHKbsvAX2Su4Z8A" target="_blank"
-                    class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-primary text-white text-base font-bold shadow-lg transform hover:scale-105 transition-transform">
-                    <span class="material-symbols-outlined">map</span>
-                    <span>Buka Peta</span>
-                </a>
-                <a
-                    href="https://www.youtube.com/@myweddinglivestreaming8651" target="_blank"
-                    class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-gray-600 text-white text-base font-bold shadow-lg transform hover:scale-105 transition-transform">
-                    <span class="material-symbols-outlined">live_tv</span>
-                    <span>Tonton Langsung</span>
-                </a>
             </div>
         </div>
-        <div class="px-6 py-10 bg-white/50 dark:bg-black/10 text-center">
-            <h2 class="text-3xl font-bold font-serif text-gray-800 dark:text-gray-200 mb-4">Simpan Tanggal</h2>
+
+        <!-- <div class="px-6 py-10 bg-white/50 dark:bg-black/10 text-center"> -->
+        <div class="px-6 py-10 text-center bg-rose-gold-200 text-rose-gold-text">
+            <h2 class="text-4xl font-bold font-serif text-rose-gold-text mb-2">Simpan Tanggal</h2>
             <div class="flex justify-center gap-4 text-gray-800 dark:text-gray-200">
                 <div class="flex flex-col items-center">
                     <span class="text-4xl font-bold">123</span>
@@ -185,7 +205,7 @@
         </div>
         <div class="px-6 py-16 bg-rose-gold-100 text-rose-gold-text">
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold font-serif text-rose-gold-text mb-2">RSVP</h2>
+                <h2 class="text-4xl font-bold font-serif text-rose-gold-text mb-2">RSVP</h2>
                 <p class="text-base text-rose-gold-text/80">Mohon konfirmasi kehadiran Anda</p>
             </div>
             <form class="space-y-6">
@@ -217,35 +237,28 @@
                         <option>5</option>
                     </select>
                 </div>
-                <button
-                    id="submitRsvp"
+                <button id="submitRsvp"
                     class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-rose-gold-300 text-rose-gold-text text-base font-bold shadow-lg transform hover:scale-105 transition-transform"
                     type="submit">
                     Kirim RSVP
                 </button>
             </form>
             <div class="mt-12">
-                <h3 class="text-2xl font-serif text-rose-gold-text mb-6 text-center">Ucapan & Doa</h3>
+                <h2 class="text-4xl font-bold font-serif text-rose-gold-text mb-2 text-center">Ucapan & Doa</h2>
                 <form id="wishForm" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-rose-gold-text mb-1" for="nama">Nama</label>
-                        <input
-                            type="text"
+                        <input type="text"
                             class="w-full rounded-lg border-rose-gold-300 bg-white focus:ring-rose-gold-300 focus:border-rose-gold-300 text-rose-gold-text px-4 py-2 border"
-                            id="nama"
-                            name="nama"
-                            placeholder="Masukkan nama Anda"
-                            required>
+                            id="nama" name="nama" placeholder="Masukkan nama Anda" required>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-rose-gold-text mb-1" for="wishes">Ucapan & Doa</label>
+                        <label class="block text-sm font-medium text-rose-gold-text mb-1" for="wishes">Ucapan &
+                            Doa</label>
                         <textarea
                             class="w-full rounded-lg border-rose-gold-300 bg-white focus:ring-rose-gold-300 focus:border-rose-gold-300 text-rose-gold-text px-4 py-2 border"
-                            id="wishes"
-                            name="wishes"
-                            placeholder="Kirim ucapan & doa terbaik Anda untuk kedua mempelai"
-                            rows="4"
-                            required></textarea>
+                            id="wishes" name="wishes" placeholder="Kirim ucapan & doa terbaik Anda untuk kedua mempelai"
+                            rows="4" required></textarea>
                     </div>
                     <button
                         class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-rose-gold-300 text-rose-gold-text text-base font-bold shadow-lg transform hover:scale-105 transition-transform"
@@ -253,17 +266,17 @@
                         Kirim
                     </button>
                 </form>
-    
+
                 <!-- Loading State -->
                 <div id="loadingState" class="text-center py-8 hidden">
                     <p class="text-rose-gold-text">Memuat ucapan...</p>
                 </div>
-    
+
                 <!-- Wishes List -->
                 <div id="wishesContainer" class="space-y-4 max-h-96 overflow-y-auto pr-2 mt-8">
                     <!-- Wishes will be loaded here dynamically -->
                 </div>
-    
+
                 <!-- Empty State -->
                 <div id="emptyState" class="text-center py-8 hidden">
                     <p class="text-rose-gold-text/60">Belum ada ucapan. Jadilah yang pertama!</p>
@@ -272,67 +285,67 @@
         </div>
         <div class="px-6 py-16 bg-rose-gold-200">
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold font-serif text-rose-gold-text mb-2">Galeri</h2>
+                <h2 class="text-4xl font-bold font-serif text-rose-gold-text mb-2 text-center">Galeri</h2>
                 <p class="text-base text-rose-gold-text/80">Momen berharga kami</p>
             </div>
             <div class="grid grid-cols-2 gap-2">
-                <a href="img_resource/gallery1.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery1.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery1.jpg" />
                 </a>
-                <a href="img_resource/gallery2.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery2.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery2.jpg" />
                 </a>
-                <a href="img_resource/gallery3.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery3.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery3.jpg" />
                 </a>
-                <a href="img_resource/gallery4.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery4.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery4.jpg" />
                 </a>
-                <a href="img_resource/gallery5.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery5.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery5.jpg" />
                 </a>
-                <a href="img_resource/gallery6.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery6.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery6.jpg" />
                 </a>
-                <a href="img_resource/gallery7.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery7.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery7.jpg" />
                 </a>
-                <a href="img_resource/gallery8.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery8.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery8.jpg" />
                 </a>
-                <a href="img_resource/gallery9.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery9.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery9.jpg" />
                 </a>
-                <a href="img_resource/gallery10.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery10.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery10.jpg" />
                 </a>
-                <a href="img_resource/gallery11.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery11.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery11.jpg" />
                 </a>
-                <a href="img_resource/gallery12.jpg"
-                    data-lightbox="mygallery" data-title="Sesi Prewedding Karolla & Damar">
+                <a href="img_resource/gallery12.jpg" data-lightbox="mygallery"
+                    data-title="Sesi Prewedding Karolla & Damar">
                     <img alt="Gallery image" class="w-full h-auto object-cover rounded-lg aspect-square"
                         src="img_resource/gallery12.jpg" />
                 </a>
@@ -361,7 +374,8 @@
                 <div class="p-6 bg-white/70 shadow-lg rounded-xl text-center backdrop-blur-sm border border-white">
                     <p class="font-serif-custom text-lg text-rose-gold-text">Damar Pradiptojati</p>
                     <!-- ID untuk menampilkan nomor rekening, dan data-account untuk nomor rekening bersih yang akan disalin -->
-                    <p id="accDisplay2" class="text-2sm font-bold text-rose-gold-text my-2 select-all">141-001-9734-987</p>
+                    <p id="accDisplay2" class="text-2sm font-bold text-rose-gold-text my-2 select-all">141-001-9734-987
+                    </p>
                     <p class="text-sm text-rose-gold-text/80">Bank Mandiri</p>
                     <button data-account="1410019734987" onclick="copyAccount(this)"
                         class="mt-4 px-6 py-2 text-sm font-bold text-white bg-rose-gold-text rounded-full shadow-md hover:bg-rose-gold-text/90 transition transform hover:scale-[1.02] active:scale-[0.98]">
@@ -545,7 +559,7 @@
                 message = `Halo Karolla & Damar, saya *${name}*.\nSaya akan *${attendance}* pada pernikahan kalian.\nJumlah tamu: *${attendees}* orang.\nTerima kasih!`;
             } else {
                 message = `Halo Karolla & Damar, saya *${name}*.\nSaya mohon maaf karena *${attendance}* pada pernikahan kalian.\nTerima kasih!`;
-            }   
+            }
             var encodedMessage = encodeURIComponent(message);
             var whatsappUrl = `https://wa.me/6281392263880?text=${encodedMessage}`; // Ganti dengan nomor WhatsApp penerima yang benar
             window.open(whatsappUrl, '_blank');
@@ -622,9 +636,9 @@
          */
         function formatDate(dateString) {
             const date = new Date(dateString);
-            const options = { 
-                year: 'numeric', 
-                month: 'long', 
+            const options = {
+                year: 'numeric',
+                month: 'long',
                 day: 'numeric',
                 hour: '2-digit',
                 minute: '2-digit'
@@ -674,7 +688,7 @@
         /**
          * Handle form submission
          */
-        form.addEventListener('submit', async function(e) {
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const nama = namaInput.value.trim();
