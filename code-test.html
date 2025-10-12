@@ -103,7 +103,7 @@
                 <p class="mt-4 italic text-shadow" style="font-size: 8pt;">"Mohon maaf apabila ada kesalahan penulisan
                     gelar / nama"</p>
             </div>
-            <div class="relative z-10 p-6 pb-3">
+            <div class="relative z-10 p-6 mb-12 sm:mb-6 w-full max-w-xs mx-auto">
                 <button id="openInvitation"
                     class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-primary text-white text-base font-bold shadow-lg transform hover:scale-105 transition-transform">
                     <span class="material-symbols-outlined">
@@ -164,7 +164,10 @@
                     </div>
                     <div class="flex items-center justify-center gap-3">
                         <span class="material-symbols-outlined text-primary text-2xl">location_on</span>
-                        <p>Gereja Santa Perawan Maria Ratu Rosario Suci, Semarang</p>
+                        <div>
+                            <p>Gereja Santa Perawan Maria</p>
+                            <p>Ratu Rosario Suci, Semarang</p>
+                        </div>
                     </div>
                 </div>
                 <div class="mt-8 flex flex-col gap-4 max-w-xs mx-auto">
@@ -729,7 +732,7 @@
             const ucapan = wishesTextarea.value.trim();
 
             if (!nama || !ucapan) {
-                alert('Mohon isi nama dan ucapan Anda');
+                showToast('Mohon isi nama dan ucapan Anda');
                 return;
             }
 
@@ -742,13 +745,13 @@
             const result = await submitWish(nama, ucapan);
 
             if (result.success) {
-                alert('Ucapan berhasil dikirim! Terima kasih.');
+                showToast('Ucapan berhasil dikirim! Terima kasih.');
                 namaInput.value = '';
                 wishesTextarea.value = '';
                 // Reload wishes
                 await loadWishes();
             } else {
-                alert('Gagal mengirim ucapan. Silakan coba lagi.');
+                showToast('Gagal mengirim ucapan. Silakan coba lagi.');
             }
 
             // Re-enable form
