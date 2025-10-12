@@ -133,7 +133,8 @@
                         src="img_resource/damar.jpg" />
                     <h3 class="text-2xl font-bold font-serif text-gray-800 dark:text-gray-200">Yakobus Damar
                         Pradiptojati</h3>
-                    <p class="mt-4 text-sm text-text-light dark:text-text-dark mb-2">Putra ke-1 dari<br />Bapak Titus Budi
+                    <p class="mt-4 text-sm text-text-light dark:text-text-dark mb-2">Putra ke-1 dari<br />Bapak Titus
+                        Budi
                         Setyoko<br />&amp;<br />Ibu Maria Sihmurni Sayekti</p>
                 </div>
                 <div class="flex flex-col items-center text-center">
@@ -163,7 +164,7 @@
                     </div>
                     <div class="flex items-center justify-center gap-3">
                         <span class="material-symbols-outlined text-primary text-2xl">location_on</span>
-                        <p>Gereja Katedral Semarang</p>
+                        <p>Gereja Santa Perawan Maria Ratu Rosario Suci, Semarang</p>
                     </div>
                 </div>
                 <div class="mt-8 flex flex-col gap-4 max-w-xs mx-auto">
@@ -240,9 +241,14 @@
                 <button id="submitRsvp"
                     class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-rose-gold-300 text-rose-gold-text text-base font-bold shadow-lg transform hover:scale-105 transition-transform"
                     type="submit">
+                    <span class="material-symbols-outlined">
+                        send
+                    </span>
                     Kirim RSVP
                 </button>
             </form>
+        </div>
+        <div class="px-6 py-16 bg-rose-gold-200 text-rose-gold-text">
             <div class="mt-12">
                 <h2 class="text-4xl font-bold font-serif text-rose-gold-text mb-2 text-center">Ucapan & Doa</h2>
                 <form id="wishForm" class="space-y-4">
@@ -260,9 +266,13 @@
                             id="wishes" name="wishes" placeholder="Kirim ucapan & doa terbaik Anda untuk kedua mempelai"
                             rows="4" required></textarea>
                     </div>
+
                     <button
                         class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-rose-gold-300 text-rose-gold-text text-base font-bold shadow-lg transform hover:scale-105 transition-transform"
                         type="submit">
+                        <span class="material-symbols-outlined">
+                            send
+                        </span>
                         Kirim
                     </button>
                 </form>
@@ -283,7 +293,7 @@
                 </div>
             </div>
         </div>
-        <div class="px-6 py-16 bg-rose-gold-200">
+        <div class="px-6 py-16 bg-rose-gold-100">
             <div class="text-center mb-10">
                 <h2 class="text-4xl font-bold font-serif text-rose-gold-text mb-2 text-center">Galeri</h2>
                 <p class="text-base text-rose-gold-text/80">Momen berharga kami</p>
@@ -353,11 +363,19 @@
         </div>
         <div class="px-6 py-16 bg-rose-gold-100 text-rose-gold-text">
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold font-serif text-rose-gold-text mb-2">Hadiah Pernikahan</h2>
-                <p class="text-base text-rose-gold-text/80">Kehadiran Anda adalah hadiah terbesar, namun jika Anda ingin
+                <h2 class="text-4xl font-bold font-serif text-rose-gold-text mb-2">Hadiah Pernikahan</h2>
+                <p class="text-base text-rose-gold-text/80 mb-10">Kehadiran Anda adalah hadiah terbesar, namun jika Anda
+                    ingin
                     memberikan hadiah, kami akan berterima kasih atas kontribusi untuk masa depan kami bersama.</p>
+                <button id="showAccounts"
+                    class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-primary text-white text-base font-bold shadow-lg transform hover:scale-105 transition-transform">
+                    <span class="material-symbols-outlined">
+                        card_giftcard
+                    </span>
+                    <span class="truncate">Buka</span>
+                </button>
             </div>
-            <div class="space-y-6 w-full">
+            <div class="space-y-6 w-full" style="display: none;" id="accountSection">
                 <!-- Kartu Rekening 1 -->
                 <div class="p-6 bg-white/70 shadow-lg rounded-xl text-center backdrop-blur-sm border border-white">
                     <p class="font-serif-custom text-lg text-rose-gold-text">Karolla Leonarda Maria Mursita Putri</p>
@@ -404,6 +422,21 @@
                 Karolla &amp; Damar
             </p>
         </div>
+    </div>
+    <!-- 
+    footer here 
+    web builder by Damar Pradiptojati
+    music by Mijil Satria Pamungkas
+     -->
+    <div>
+        <audio id="bgmusic" loop>
+            <source src="img_resource/Joyful, Joyful, We Adore Thee - Lofi Versions.mp3" type="audio/mpeg">
+        </audio>
+
+        <footer
+            class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark py-6 text-center">
+            <p class="text-sm">Dibuat dengan ❤️ oleh Damar Pradiptojati | Musik oleh Mijil Satria Pamungkas</p>
+        </footer>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
@@ -724,6 +757,25 @@
 
         // Load wishes on page load
         loadWishes();
+
+        $('#showAccounts').on('click', function () {
+            const accountSection = document.getElementById('accountSection');
+            if (accountSection.style.display === 'none' || accountSection.style.display === '') {
+                accountSection.style.display = 'block';
+                this.querySelector('span.truncate').textContent = 'Tutup';
+            } else {
+                accountSection.style.display = 'none';
+                this.querySelector('span.truncate').textContent = 'Buka';
+            }
+        });
+    </script>
+    <script>
+        const btn = $('#openInvitation')[0];
+        const audio = $('#bgmusic')[0];
+
+        btn.addEventListener('click', () => {
+            audio.play();
+        });
     </script>
 </body>
 
