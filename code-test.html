@@ -750,15 +750,17 @@
 
             // Submit the wish
             const result = await submitWish(nama, ucapan);
-
-            if (result.success) {
-                showToast('Ucapan berhasil dikirim! Terima kasih.');
+            console.log(result.data.message);
+            if (result.data.response == 'ok') {
+                alert(result.data.message || 'Ucapan berhasil dikirim!');
+                showToast(result.data.message || 'Ucapan berhasil dikirim!');
                 namaInput.value = '';
                 wishesTextarea.value = '';
                 // Reload wishes
                 await loadWishes();
             } else {
-                showToast('Gagal mengirim ucapan. Silakan coba lagi.');
+                alert(result.data.message || 'Gagal mengirim ucapan. Silakan coba lagi.');
+                showToast(result.data.message || 'Gagal mengirim ucapan. Silakan coba lagi.');
             }
 
             // Re-enable form
