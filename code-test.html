@@ -752,14 +752,14 @@
             const result = await submitWish(nama, ucapan);
             console.log(result.data.message);
             if (result.data.response == 'ok') {
-                // alert(result.data.message || 'Ucapan berhasil dikirim!');
+                alert(result.data.message || 'Ucapan berhasil dikirim!');
                 showToast(result.data.message || 'Ucapan berhasil dikirim!');
                 namaInput.value = '';
                 wishesTextarea.value = '';
                 // Reload wishes
                 await loadWishes();
             } else {
-                // alert(result.data.message || 'Gagal mengirim ucapan. Silakan coba lagi.');
+                alert(result.data.message || 'Gagal mengirim ucapan. Silakan coba lagi.');
                 showToast(result.data.message || 'Gagal mengirim ucapan. Silakan coba lagi.');
             }
 
