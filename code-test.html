@@ -456,6 +456,7 @@
         const inviteeParam = new URLSearchParams(window.location.search).get('to');
         if (inviteeParam) {
             document.getElementById('invitee').textContent = decodeURIComponent(inviteeParam.replace(/\+/g, ' '));
+            $("#nama").val(decodeURIComponent(inviteeParam.replace(/\+/g, ' ')));
         } else {
             document.getElementById('invitee').textContent = 'Bapak/Ibu/Saudara/i';
         }
