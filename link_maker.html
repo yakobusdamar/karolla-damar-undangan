@@ -18,24 +18,14 @@
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
           <div class="card shadow-sm">
             <div class="card-body">
-              <h5 class="card-title mb-3">Link Maker</h5>
-              <p class="text-muted small">Masukkan nama/handle di kolom <strong>Kepada</strong>. Hasil link akan muncul di bawah secara langsung. Mobile-friendly.</p>
+              <h5 class="card-title mb-3">Link Undangan Maker</h5>
+              <p class="text-muted small">Masukkan nama penerima di kolom <strong>Kepada</strong>. Sistem akan membuat link otomatis berdasarkan format undangan.</p>
 
               <form id="makerForm" autocomplete="off">
                 <div class="mb-3">
                   <label for="kepada" class="form-label">Kepada</label>
-                  <input type="text" class="form-control" id="kepada" placeholder="contoh: johndoe atau @johndoe" />
-                  <div id="helpText" class="form-text">Boleh pakai @ di depan atau tidak — sistem akan membersihkan spasi otomatis.</div>
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Tipe Link</label>
-                  <select id="template" class="form-select">
-                    <option value="https://example.com/to/{to}">Generic (https://example.com/to/{to})</option>
-                    <option value="https://threads.net/@{to}">Threads profile (https://threads.net/@{to})</option>
-                    <option value="mailto:{to}@example.com">Email (mailto:{to}@example.com)</option>
-                    <option value="https://wa.me/?text=Hi%20{to}">WhatsApp (https://wa.me/?text=Hi {to})</option>
-                  </select>
+                  <input type="text" class="form-control" id="kepada" placeholder="contoh: Mbak Prisca & Kel." />
+                  <div id="helpText" class="form-text">Teks akan otomatis diubah jadi format URL yang aman.</div>
                 </div>
 
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-start">
@@ -50,9 +40,9 @@
                 <label for="output" class="form-label">Hasil Link</label>
                 <div class="input-group">
                   <input type="text" id="output" class="form-control output-input" readonly aria-label="Hasil link" />
-                  <button class="btn btn-outline-secondary" id="copyBtn" type="button">Copy</button>
+                  <button class="btn btn-outline-secondary" id="copyBtn" type="button">Copy Link</button>
                 </div>
-                <div class="form-text mt-1">Klik link untuk membuka di tab baru. Tombol <em>Copy</em> menyalin ke clipboard.</div>
+                <div class="form-text mt-1">Klik link untuk membuka di tab baru.</div>
               </div>
 
               <div class="mt-3 text-end">
@@ -61,57 +51,39 @@
             </div>
           </div>
 
-          <div class="text-center mt-3 text-muted small">Tip: gunakan tipe <strong>Threads profile</strong> untuk membentuk tautan profil yang umum.</div>
+          <div class="text-center mt-3 text-muted small">Format: <code>https://yakobusdamar.github.io/karolla-damar-undangan/code-test.html?to=Nama%20Penerima</code></div>
         </div>
       </div>
     </div>
 
     <script>
       (function(){
+        const baseUrl = 'https://yakobusdamar.github.io/karolla-damar-undangan/code-test.html?to=';
         const kepada = document.getElementById('kepada');
         const output = document.getElementById('output');
-        const template = document.getElementById('template');
         const generateBtn = document.getElementById('generateBtn');
         const copyBtn = document.getElementById('copyBtn');
         const resetBtn = document.getElementById('resetBtn');
 
-        function sanitize(value) {
-          if (!value) return '';
-          // trim, remove leading @, and replace spaces with hyphen
-          return value.trim().replace(/^@+/, '').replace(/\s+/g, '-');
-        }
-
-        function buildLink(rawTo, tpl) {
-          const to = sanitize(rawTo);
-          if (!to) return '';
-
-          // For templates that include {to} we must encode appropriately.
-          // For mailto we don't encode the @ that template already includes.
-          const encoded = encodeURIComponent(to);
-
-          return tpl.replace('{to}', encoded).replace(/{to\}/g, encoded);
+        function buildLink(name) {
+          if (!name) return '';
+          return baseUrl + encodeURIComponent(name.trim());
         }
 
         function updateOutput() {
-          const tpl = template.value;
           const val = kepada.value;
-          const link = buildLink(val, tpl);
+          const link = buildLink(val);
           output.value = link;
         }
 
-        // Live update when user types
+        // Live update
         kepada.addEventListener('input', updateOutput);
-        template.addEventListener('change', updateOutput);
 
-        // Generate button (also useful for accessibility)
+        // Generate button
         generateBtn.addEventListener('click', function(){
           updateOutput();
-          if (output.value) {
-            // open in new tab when clicking the generated link in output
-            // but we won't auto-open; we just focus the output
-            output.focus();
-            output.select();
-          }
+          output.focus();
+          output.select();
         });
 
         // Copy to clipboard
@@ -120,33 +92,31 @@
           try {
             await navigator.clipboard.writeText(output.value);
             copyBtn.innerText = 'Copied!';
-            setTimeout(()=> copyBtn.innerText = 'Copy', 1300);
+            setTimeout(()=> copyBtn.innerText = 'Copy Link', 1300);
           } catch (e) {
-            // fallback: select the text and execCopy
             output.select();
             document.execCommand('copy');
             copyBtn.innerText = 'Copied!';
-            setTimeout(()=> copyBtn.innerText = 'Copy', 1300);
+            setTimeout(()=> copyBtn.innerText = 'Copy Link', 1300);
           }
         });
 
         // Reset
         resetBtn.addEventListener('click', function(){
           kepada.value = '';
-          template.selectedIndex = 0;
           updateOutput();
         });
 
-        // Make output clickable: open in new tab on Enter when focused
+        // Klik Enter untuk langsung buka
         output.addEventListener('keydown', function(e){
           if (e.key === 'Enter' && output.value) {
             window.open(output.value, '_blank', 'noopener');
           }
         });
 
-        // Initial
         updateOutput();
       })();
     </script>
   </body>
 </html>
+
