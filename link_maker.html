@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Link Maker — Kepada</title>
-    <!-- Bootstrap 5 CDN -->
+    <title>Invitation Maker — Karolla & Damar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
       body { padding-top: 1.5rem; background-color: #f8f9fa; }
       .card { border-radius: 12px; }
       .output-input { font-family: monospace; }
+      .preview-box { background: #fff; border-radius: 8px; padding: 1rem; border: 1px solid #dee2e6; white-space: pre-line; }
     </style>
   </head>
   <body>
@@ -18,40 +18,45 @@
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
           <div class="card shadow-sm">
             <div class="card-body">
-              <h5 class="card-title mb-3">Link Undangan Maker</h5>
-              <p class="text-muted small">Masukkan nama penerima di kolom <strong>Kepada</strong>. Sistem akan membuat link otomatis berdasarkan format undangan.</p>
+              <h5 class="card-title mb-3">Invitation Maker</h5>
+              <p class="text-muted small">Masukkan nama penerima. Sistem akan membuat teks undangan dan link otomatis.</p>
 
               <form id="makerForm" autocomplete="off">
                 <div class="mb-3">
-                  <label for="kepada" class="form-label">Kepada</label>
-                  <input type="text" class="form-control" id="kepada" placeholder="contoh: Mbak Prisca & Kel." />
-                  <div id="helpText" class="form-text">Teks akan otomatis diubah jadi format URL yang aman.</div>
+                  <label for="kepada" class="form-label">Nama Penerima</label>
+                  <input type="text" class="form-control" id="kepada" placeholder="contoh: Bapak/Ibu Andi & Keluarga" />
+                  <div id="helpText" class="form-text">Nama akan otomatis dimasukkan ke template undangan.</div>
                 </div>
 
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-start">
-                  <button type="button" id="generateBtn" class="btn btn-primary">Buat Link</button>
+                  <button type="button" id="generateBtn" class="btn btn-primary">Buat Undangan</button>
                   <button type="button" id="resetBtn" class="btn btn-outline-secondary">Reset</button>
                 </div>
               </form>
 
               <hr />
 
-              <div class="mb-2">
+              <div class="mb-3">
                 <label for="output" class="form-label">Hasil Link</label>
-                <div class="input-group">
+                <div class="input-group mb-2">
                   <input type="text" id="output" class="form-control output-input" readonly aria-label="Hasil link" />
                   <button class="btn btn-outline-secondary" id="copyBtn" type="button">Copy Link</button>
                 </div>
-                <div class="form-text mt-1">Klik link untuk membuka di tab baru.</div>
+                <div class="form-text">Klik link untuk membuka di tab baru.</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Pratinjau Teks Undangan</label>
+                <div id="preview" class="preview-box small text-muted"></div>
               </div>
 
               <div class="mt-3 text-end">
-                <small class="text-muted">Made simple • Mobile optimized • Bootstrap</small>
+                <small class="text-muted">Made with ❤️ for Karolla & Damar</small>
               </div>
             </div>
           </div>
 
-          <div class="text-center mt-3 text-muted small">Format: <code>https://yakobusdamar.github.io/karolla-damar-undangan/code-test.html?to=Nama%20Penerima</code></div>
+          <div class="text-center mt-3 text-muted small">Format link: <code>https://yakobusdamar.github.io/karolla-damar-undangan?to=Nama%20Penerima</code></div>
         </div>
       </div>
     </div>
@@ -61,6 +66,7 @@
         const baseUrl = 'https://yakobusdamar.github.io/karolla-damar-undangan?to=';
         const kepada = document.getElementById('kepada');
         const output = document.getElementById('output');
+        const preview = document.getElementById('preview');
         const generateBtn = document.getElementById('generateBtn');
         const copyBtn = document.getElementById('copyBtn');
         const resetBtn = document.getElementById('resetBtn');
@@ -70,27 +76,46 @@
           return baseUrl + encodeURIComponent(name.trim());
         }
 
-        function updateOutput() {
-          const val = kepada.value;
-          const link = buildLink(val);
-          output.value = link;
+        function buildMessage(name) {
+          if (!name) return '';
+          const safeLink = buildLink(name);
+          return `_*Salam sejahtera*_
+
+Dengan penuh kerendahan hati kami mengundang Bapak/Ibu/Saudara/i *${name}* untuk hadir dalam acara pernikahan kami:
+
+*Karolla Leonarda Maria Mursita Putri*
+dan
+*Yakobus Damar Pradiptojati*
+
+Berikut link undangan resmi dari kami:
+${safeLink}
+
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kami. Atas kehadiran dan doa restunya kami sampaikan banyak terima kasih.
+
+Hormat kami,
+_*Karolla & Damar*_`;
         }
 
-        // Live update
+        function updateOutput() {
+          const val = kepada.value.trim();
+          const link = buildLink(val);
+          const msg = buildMessage(val);
+          output.value = link;
+          preview.textContent = msg;
+        }
+
         kepada.addEventListener('input', updateOutput);
 
-        // Generate button
         generateBtn.addEventListener('click', function(){
           updateOutput();
           output.focus();
           output.select();
         });
 
-        // Copy to clipboard
         copyBtn.addEventListener('click', async function(){
           if (!output.value) return;
           try {
-            await navigator.clipboard.writeText(output.value);
+            await navigator.clipboard.writeText(preview.textContent);
             copyBtn.innerText = 'Copied!';
             setTimeout(()=> copyBtn.innerText = 'Copy Link', 1300);
           } catch (e) {
@@ -101,22 +126,18 @@
           }
         });
 
-        // Reset
         resetBtn.addEventListener('click', function(){
           kepada.value = '';
-          updateOutput();
+          output.value = '';
+          preview.textContent = '';
         });
 
-        // Klik Enter untuk langsung buka
         output.addEventListener('keydown', function(e){
           if (e.key === 'Enter' && output.value) {
             window.open(output.value, '_blank', 'noopener');
           }
         });
-
-        updateOutput();
       })();
     </script>
   </body>
 </html>
-
