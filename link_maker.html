@@ -40,7 +40,7 @@
                 <label for="output" class="form-label">Hasil Link</label>
                 <div class="input-group mb-2">
                   <input type="text" id="output" class="form-control output-input" readonly aria-label="Hasil link" />
-                  <button class="btn btn-outline-secondary" id="copyBtn" type="button">Copy Link</button>
+                  <button class="btn btn-outline-secondary" id="copyBtn" type="button">Copy</button>
                 </div>
                 <div class="form-text">Klik link untuk membuka di tab baru.</div>
               </div>
@@ -71,17 +71,23 @@
         const copyBtn = document.getElementById('copyBtn');
         const resetBtn = document.getElementById('resetBtn');
 
+        // Hilangkan karakter yang bisa ganggu URL
+        function sanitizeName(name) {
+          return name.replace(/[<>#{}|\\^%~\[\]`]/g, '').trim();
+        }
+
         function buildLink(name) {
           if (!name) return '';
-          return baseUrl + encodeURIComponent(name.trim());
+          return baseUrl + encodeURIComponent(name);
         }
 
         function buildMessage(name) {
           if (!name) return '';
-          const safeLink = buildLink(name);
+          const safeName = sanitizeName(name);
+          const safeLink = buildLink(safeName);
           return `_*Salam sejahtera*_
 
-Dengan penuh kerendahan hati kami mengundang Bapak/Ibu/Saudara/i *${name}* untuk hadir dalam acara pernikahan kami:
+Dengan penuh kerendahan hati kami mengundang Bapak/Ibu/Saudara/i *${safeName}* untuk hadir dalam acara pernikahan kami:
 
 *Karolla Leonarda Maria Mursita Putri*
 dan
@@ -97,7 +103,7 @@ _*Karolla & Damar*_`;
         }
 
         function updateOutput() {
-          const val = kepada.value.trim();
+          const val = sanitizeName(kepada.value);
           const link = buildLink(val);
           const msg = buildMessage(val);
           output.value = link;
@@ -113,16 +119,16 @@ _*Karolla & Damar*_`;
         });
 
         copyBtn.addEventListener('click', async function(){
-          if (!output.value) return;
+          if (!preview.textContent) return;
           try {
             await navigator.clipboard.writeText(preview.textContent);
             copyBtn.innerText = 'Copied!';
-            setTimeout(()=> copyBtn.innerText = 'Copy Link', 1300);
+            setTimeout(()=> copyBtn.innerText = 'Copy', 1300);
           } catch (e) {
             output.select();
             document.execCommand('copy');
             copyBtn.innerText = 'Copied!';
-            setTimeout(()=> copyBtn.innerText = 'Copy Link', 1300);
+            setTimeout(()=> copyBtn.innerText = 'Copy', 1300);
           }
         });
 
